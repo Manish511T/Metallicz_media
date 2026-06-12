@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Stats from "./Stats";
 
+
+const EASE = "easeOut" as const;
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
@@ -26,8 +28,9 @@ const containerVariants = (mobile: boolean) => ({
 
 const itemVariants = {
   hidden: { opacity: 0, y: 18 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
+
 
 const imageVariants = (mobile: boolean) => ({
   hidden: { opacity: 0, y: mobile ? 24 : 0, x: mobile ? 0 : 80 },
@@ -35,7 +38,7 @@ const imageVariants = (mobile: boolean) => ({
     opacity: mobile ? 0.25 : 0.95,
     y: 0,
     x: 0,
-    transition: { duration: mobile ? 0.7 : 1.1, ease: "easeOut" },
+    transition: { duration: mobile ? 0.7 : 1.1, ease: EASE },
   },
 });
 
@@ -43,7 +46,7 @@ const collageContainerVariants = (mobile: boolean) => ({
   hidden: { opacity: 0, y: mobile ? 20 : 0, x: mobile ? 0 : 100 },
   show:   {
     opacity: 1, y: 0, x: 0,
-    transition: { duration: mobile ? 0.45 : 1.1, delay: mobile ? 0.25 : 0.5, ease: "easeOut" },
+    transition: { duration: mobile ? 0.45 : 1.1, delay: mobile ? 0.25 : 0.5, ease: EASE },
   },
 });
 
@@ -52,17 +55,16 @@ const cardVariants = {
   show: (i: number) => ({
     opacity: 1,
     x: 0,
-    transition: { delay: 0.35 + i * 0.11, duration: 0.55, ease: "easeOut" },
+    transition: { delay: 0.35 + i * 0.11, duration: 0.55, ease: EASE },
   }),
 };
 
-// Mobile card strip — slides up from the bottom
 const mobileCardVariants = {
   hidden: { opacity: 0, y: 30 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.6 + i * 0.1, duration: 0.45, ease: "easeOut" },
+    transition: { delay: 0.6 + i * 0.1, duration: 0.45, ease: EASE },
   }),
 };
 
@@ -90,7 +92,7 @@ const Hero = () => {
       {/* ── Background ── */}
       <div className="absolute inset-0 bg-[#030303]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_40%,rgba(0,0,0,0.85)_100%)]" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-black via-black/60 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
       {/* ── Building image ── */}
       <div className="absolute inset-0 pointer-events-none">
@@ -134,7 +136,7 @@ const Hero = () => {
           rotate-12
         "
       >
-        <div className="flex flex-col gap-0.75 mt-24">
+        <div className="flex flex-col gap-[3px] mt-24">
           {collageCards.map((item, index) => (
             <motion.div
               key={item.title}
@@ -145,23 +147,23 @@ const Hero = () => {
               className="
                 relative overflow-hidden cursor-pointer
                 border border-gray-500 bg-black
-                w-38.75 h-35
-                lg:w-51.25 lg:h-46.25
-                xl:w-66.25 xl:h-57.5
+                w-[155px] h-[140px]
+                lg:w-[205px] lg:h-[185px]
+                xl:w-[265px] xl:h-[230px]
               "
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={item.image}
                 alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover -rotate-12 scale-125 transition-transform duration-700 hover:scale-[1.42]"
+                className="absolute inset-0 w-full h-full object-cover -rotate-[12deg] scale-125 transition-transform duration-700 hover:scale-[1.42]"
               />
               <div className="absolute inset-0 bg-black/45" />
-              <div className="absolute bottom-4 left-4 z-10 -rotate-12">
+              <div className="absolute bottom-4 left-4 z-10 -rotate-[12deg]">
                 <h3 className="text-[#ff7a1a] font-bold uppercase text-lg lg:text-xl xl:text-2xl">
                   {item.title}
                 </h3>
-                <p className="mt-1 text-white max-w-37.5 text-xs lg:text-sm">
+                <p className="mt-1 text-white max-w-[150px] text-xs lg:text-sm">
                   {item.desc}
                 </p>
               </div>
@@ -237,9 +239,9 @@ const Hero = () => {
                   initial={initial}
                   animate={animate}
                   className="
-                    relative overflow-hidden shrink-0 cursor-pointer
+                    relative overflow-hidden flex-shrink-0 cursor-pointer
                     border border-gray-600 bg-black
-                    w-35 h-27.5
+                    w-[140px] h-[110px]
                   "
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -253,7 +255,7 @@ const Hero = () => {
                     <h3 className="text-[#ff7a1a] font-bold uppercase text-sm leading-tight">
                       {item.title}
                     </h3>
-                    <p className="text-white text-[10px] mt-0.5 max-w-27.5 leading-snug">
+                    <p className="text-white text-[10px] mt-0.5 max-w-[110px] leading-snug">
                       {item.desc}
                     </p>
                   </div>
