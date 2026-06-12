@@ -19,7 +19,15 @@ const Navbar = () => {
   ];
 
   return (
-    <header className=" text-white bg-[#030303]">
+    <header className="
+    absolute
+    top-0
+    left-0
+    w-full
+    z-50
+    bg-transparent
+    text-white
+  ">
       <div className="max-w-7xl mx-auto px-3 lg:px-4">
         {/* Top Navbar */}
         <div className="flex items-center justify-between h-16">
